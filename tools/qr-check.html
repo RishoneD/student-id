@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>QR check (dev only)</title>
+  <!-- Dev-only page: not part of the app and not cached by the service worker.
+       Loads jsQR from a CDN to decode the barcode drawn by the app. -->
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+</head>
+<body>
+  <!-- iframe first: Chrome pauses animation frames in off-screen iframes -->
+  <iframe id="app" src="../index.html" width="420" height="560"></iframe>
+  <pre id="out">waiting…</pre>
+  <script>
+    const out = document.getElementById('out');
+    const results = [];
+    function check() {
+      const doc = document.getElementById('app').contentDocument;
+      const canvas = doc && doc.getElementById('qr');
+      if (!canvas || !canvas.width) return;
+      const img = canvas.getContext('2d', { willReadFrequently: true }).getImageData(0, 0, canvas.width, canvas.height);
+      const res = jsQR(img.data, img.width, img.height);
+      const digits = doc.getElementById('digits').textContent.replace(' ', '');
+      const decoded = res ? res.data : null;
+      results.push({ t: new Date().toISOString().slice(11, 19), decoded, expected: 'A7F3K9Q2.' + digits, ok: decoded === 'A7F3K9Q2.' + digits });
+      window.qrResults = results;
+      const last = results[results.length - 1];
+      out.textContent = `checks: ${results.length}  ok: ${results.filter(x => x.ok).length}  last: ${last.decoded}`;
+    }
+    setInterval(check, 1000);
+  </script>
+</body>
+</html>

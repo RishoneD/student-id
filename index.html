@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#1d4ed8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="תעודת תלמיד">
+  <title>תעודת תלמיד</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="screen">
+    <h1 class="name" id="name"></h1>
+
+    <section class="card" id="card">
+      <canvas class="qr" id="qr" role="img" aria-label="ברקוד הזדהות"></canvas>
+      <div class="digits" id="digits" aria-live="off"></div>
+    </section>
+
+    <section class="live" aria-hidden="true">
+      <svg class="ring" viewBox="0 0 100 100">
+        <circle class="ring-track" cx="50" cy="50" r="42"></circle>
+        <circle class="ring-progress" id="ring-progress" cx="50" cy="50" r="42"></circle>
+        <g id="orbit"><circle class="ring-dot" cx="50" cy="8" r="5"></circle></g>
+        <text class="ring-secs" id="ring-secs" x="50" y="51"></text>
+      </svg>
+      <div class="clock" id="clock"></div>
+    </section>
+
+    <footer class="footer">
+      <span id="version"></span>
+      <span class="sep">·</span>
+      <span id="offline"></span>
+    </footer>
+  </main>
+
+  <noscript>יש להפעיל JavaScript כדי להציג את הברקוד.</noscript>
+
+  <script src="version.js"></script>
+  <script src="vendor/qrcode.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

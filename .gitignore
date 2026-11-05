@@ -1,0 +1,14 @@
+# Local Claude Code settings (may contain machine-specific permissions)
+.claude/settings.local.json
+
+# Secrets must never be committed. Real secrets live only in platform env vars.
+.env
+.env.*
+*.key
+*.pem
+
+# OS / editor noise
+Thumbs.db
+desktop.ini
+.DS_Store
+__pycache__/
